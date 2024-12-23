@@ -726,4 +726,50 @@ class Paystack
         $this->setRequestOptions();
         return $this->setHttpResponse("/bank/resolve/?account_number=" . $account_number . "&bank_code=" . $bank_code, "GET")->getResponse();
     }
+
+    /**
+     * Create a customer, validate the customer, and assign a DVA to the customer.
+     * @param array|null
+     * @return array
+     */
+
+     public function assignDedicatedAccount($data = null)
+     {
+         if (!$data)
+             $data = [
+                 "email" => request()->email,
+                 "first_name" => request()->first_name,
+                 "middle_name" => request()->middle_name,
+                 "last_name" => request()->last_name,
+                 "phone" => request()->phone,
+                 "preferred_bank" => request()->preferred_bank,
+                 "country" => request()->country ?? "NG"
+             ];
+ 
+         $this->setRequestOptions();
+         return $this->setHttpResponse('/dedicated_account/assign', 'POST', array_filter($data))->getResponse();
+     }
+ 
+     /**
+      * Create a customer, validate the customer, and assign a DVA to the customer.
+      * @param array|null
+      * @return array
+      */
+ 
+     public function createDedicatedAccount($data = null)
+     {
+         if (!$data)
+             $data = [
+                 "customer" => request()->customer,
+                 "first_name" => request()->first_name,
+                 "middle_name" => request()->middle_name,
+                 "last_name" => request()->last_name,
+                 "phone" => request()->phone,
+                 "preferred_bank" => request()->preferred_bank,
+                 "country" => request()->country ?? "NG"
+             ];
+ 
+         $this->setRequestOptions();
+         return $this->setHttpResponse('/dedicated_account', 'POST', array_filter($data))->getResponse();
+     }
 }
