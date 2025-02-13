@@ -801,5 +801,18 @@ class Paystack
         $this->setRequestOptions();
         return $this->setHttpResponse("/transfer", "POST", array_filter($data))->getResponse();
     }
-    
+
+    /**
+     * Initiate a fund refund.
+     * This method starts a refund to a registered recipient.
+     * 
+     * @param array $data - An array containing refund details such as recipient code, amount, currency, and other relevant information.
+     * @return array - Response from the API with refund status and details.
+     */
+    public function refund(array $data)
+    {
+        $this->setRequestOptions();
+        return $this->setHttpResponse("/refund", "POST", array_filter($data))->getResponse();
+
+    }
 }
